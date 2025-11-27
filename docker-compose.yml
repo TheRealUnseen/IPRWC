@@ -1,0 +1,66 @@
+version: '1.0'
+
+services:
+    angular:
+        build:
+            context:  ./Frontend
+            dockerfile: Frontend_Dockerfile
+        container_name: angular
+        ports:
+            - "80:80"
+        depends_on:
+            - spring-boot
+        networks:
+            - http
+        environment:
+            NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx
+  
+    spring-boot:
+        build:
+            context: ./Backend
+            dockerfile: Backend_Dockerfile
+        container_name: spring-boot
+        environment:
+            SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+        ports:
+            - "8080:8080"
+        depends_on:
+            - mysql
+        networks:
+            - database
+            - http
+  
+    # mysql:
+    #     image: mysql:latest
+    #     container_name: mysql
+    #     restart: always
+    #     environment:
+    #         MYSQL_DATABASE: ${MYSQL_DATABASE}
+    #         MYSQL_USER: ${MYSQL_USER}
+    #         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    #         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    #     networks:
+    #         - database
+    #         - dbadmin
+    #     volumes:
+    #         - dbdata:/var/lib/mysql
+
+    # phpmyadmin:
+    #     image: phpmyadmin/phpmyadmin:latest
+    #     container_name: phpmyadmin
+    #     ports:
+    #         - 8090:80
+    #     restart: always
+    #     environment:
+    #         PMA_HOST: mysql
+    #         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}   
+    #     networks:
+    #         - dbadmin
+
+networks:
+    database:
+    http:
+    dbadmin:
+
+volumes:
+    dbdata:

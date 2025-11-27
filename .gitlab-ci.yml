@@ -1,0 +1,48 @@
+default:
+  image: docker:27.5.1
+  before_script:
+    - docker info
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+
+stages:
+  - release
+  - deploy
+
+variables:
+  FRONTEND_IMAGE_LOCATION: $CI_REGISTRY_IMAGE/$FRONTEND_IMAGE_NAME
+  BACKEND_IMAGE_LOCATION: $CI_REGISTRY_IMAGE/$BACKEND_IMAGE_NAME
+
+release-frontend:
+  stage: release
+  script:
+    - cd Frontend
+    - docker pull $FRONTEND_IMAGE_LOCATION:latest || true
+    - docker build --target release --cache-from $FRONTEND_IMAGE_LOCATION:latest --tag $FRONTEND_IMAGE_LOCATION:latest -f $FRONTEND_DOCKERFILE_NAME .
+    - docker push $FRONTEND_IMAGE_LOCATION:latest
+
+release-backend:
+  stage: release
+  script:
+    - cd Backend
+    - docker pull $BACKEND_IMAGE_LOCATION:latest || true
+    - docker build --target release --cache-from $BACKEND_IMAGE_LOCATION:latest --tag $BACKEND_IMAGE_LOCATION:latest -f $BACKEND_DOCKERFILE_NAME .
+    - docker push $BACKEND_IMAGE_LOCATION:latest
+
+deploy-production:
+  stage: deploy
+  needs: [release-frontend, release-backend]
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+    - mkdir -p ~/ssh
+    - chmod 700 ~/.ssh
+    - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - export DOCKER_HOST=ssh://$SSH_USER@$SSH_HOST
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+    - docker compose -f docker-compose-production.yml up -d
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"

@@ -1,0 +1,56 @@
+version: "1.0"
+services:
+  angular:
+    build:
+      context: ./Frontend
+      dockerfile: Frontend_Dockerfile
+    container_name: angular
+    ports:
+      - "80:80"
+    depends_on:
+      - spring-boot
+    networks:
+      - http
+    environment:
+      NGINX_ENVSUBST_OUTPUT_DIR: /etc/nginx
+
+  spring-boot:
+    build:
+      context: ./Backend
+      dockerfile: Backend_Dockerfile
+    container_name: spring-boot
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: ${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      SERVER_ERROR_INCLUDE_MESSAGE: ${SERVER_ERROR_INCLUDE_MESSAGE}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - database
+      - http
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - database
+
+networks:
+  database:
+  http:
+  
+
+volumes:
+  postgres_data:
