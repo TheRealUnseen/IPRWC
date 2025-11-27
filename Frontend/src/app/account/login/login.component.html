@@ -1,0 +1,30 @@
+<div class="w-full">
+  <div class="flex items-center justify-center mt-20">
+    <div class="flex flex-col bg-tertiary-color border-primary-color-500 border-4 p-8 rounded-lg shadow-lg w-[26rem] text-white">
+      <h1 class="text-3xl font-semibold mb-4 text-center">Inloggen</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label class="block text-base text-white mb-1">Email</label>
+          <input formControlName="email" type="text" class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none">
+        </div>
+        <div class="mb-4">
+          <label class="block text-base text-white mb-1">Wachtwoord</label>
+          <input formControlName="password" type="password" class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none">
+        </div>
+<!--        <div class="flex items-center mb-4">-->
+<!--          <label class="block text-base text-center text-white mr-1">Hou me ingelogd</label>-->
+<!--          <input formControlName="rememberMe" type="checkbox" class="mr-2 text-primary-color-800">-->
+<!--        </div>-->
+        <button type="submit" class="w-full text-center bg-primary-color-500 hover:bg-secondary-color text-white font-semibold p-3 rounded">
+          Log in
+        </button>
+      </form>
+      <div class="text-center mt-4">
+        <a href="#" class="text-base text-primary-color-500 hover:underline hover:text-primary-color-800">Wachtwoord vergeten?</a>
+      </div>
+      <div class="mt-4">
+        <p>Nieuwe klant? <a [routerLink]="['/register']" class="underline-offset-1 text-base text-primary-color-500 hover:underline hover:text-primary-color-800">Begin hier!</a></p>
+      </div>
+    </div>
+  </div>
+</div>

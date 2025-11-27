@@ -1,0 +1,43 @@
+<div class="w-[60%] mx-auto mt-10">
+  <h1 class="text-primary-color-800 text-4xl font-bold underline-offset-2 underline">Winkelwagen</h1>
+  <div class="grid grid-cols-10 mt-5">
+    <div class="col-span-7">
+      <div *ngIf="cartItems.length == 0">
+        <h1 class="text-2xl text-primary-color-800 font-semibold">Je winkelwagen is leeg.</h1>
+      </div>
+      <cart-list (deleteItem)="deleteItem($event)" (deleteAllItem)="deleteAllItem($event)" (addItem)="addItem($event)" [cartItems]="cartItems"></cart-list>
+    </div>
+    <div class="col-span-3">
+      <h1 class="text-3xl text-primary-color-800 font-bold underline-offset-2 underline">Overzicht</h1>
+      <div class="text-base mt-2">
+        <ul>
+          <li class="overflow-hidden w-full flex items-center">
+            <span class="material-symbols-outlined text-dark-secondary-color text-[26px]">check_small</span>
+            <p>Voor <span class="font-semibold text-dark-secondary-color">18:00</span> besteld, over twee werkdagen in huis.</p>
+          </li>
+          <li class="overflow-hidden w-full flex items-center mt-1">
+            <span class="material-symbols-outlined text-dark-secondary-color text-[26px]">check_small</span>
+            <p>Vanaf <span class="font-semibold text-dark-secondary-color">{{ 50 | currency: 'EUR' }}</span> gratis bezorging!</p>
+          </li>
+        </ul>
+      </div>
+      <div class="text-md mt-3">
+        <ul>
+          <li class="w-full flex flex-row justify-between items-end">
+            <h5 class="text-lg font-semibold">Bezorging:</h5>
+            <p *ngIf="totalPriceExcl >= 50 || totalPriceExcl == 0" class="text-sm font-bold text-dark-secondary-color">Gratis</p>
+            <p *ngIf="totalPriceExcl < 50 && totalPriceExcl != 0"  class="text-sm font-bold ">{{ 7.95 | currency: 'EUR' }}</p>
+          </li>
+          <li class="w-full flex flex-row justify-between items-end mt-1">
+            <h5 class="text-lg font-semibold mt-1">Totaalbedrag:</h5>
+            <p class="text-base font-bold">{{ totalPriceIncl | currency: 'EUR' }}</p>
+          </li>
+        </ul>
+      </div>
+      <button (click)="order()" class="mt-5 w-full bg-primary-color-500 px-4 py-3 text-white rounded-lg shadow-lg flex items-center justify-center hover:bg-secondary-color">
+        <span class="material-symbols-outlined mt-0.5 mr-2 inline-block align-top">shopping_cart_checkout</span>
+        <p class="font-bold text-xl inline-block align-top">Ga verder naar bestellen</p>
+      </button>
+    </div>
+  </div>
+</div>

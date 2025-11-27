@@ -1,0 +1,52 @@
+<nav class="w-full bg-primary-color-500 border-b border-primary-color-800 h-[5rem] text-white">
+  <div class="h-full w-full flex flex-row text-lg font-bold">
+    <ul class="pl-10 flex flex-row basis-3/4 space-x-4 h-full">
+      <li class="flex items-center text-center">
+        <a [routerLink]="['/']" [routerLinkActive]="'active'">
+          <img ngSrc="./assets/logo.avif" width="80" height="80" priority alt="Home">
+        </a>
+      </li>
+      <li class="flex items-center text-center ">
+        <a class="hover:bg-secondary-color px-5 py-2 rounded-lg" [routerLink]="['/products']" [routerLinkActive]="'active'">Producten</a>
+      </li>
+    </ul>
+    <ul class="pr-5 flex flex-row basis-1/4 space-x-4 h-full justify-end">
+      <li class="flex items-center text-center relative">
+        <a class="hover:bg-secondary-color px-5 py-2 rounded-lg" [routerLink]="['/cart']" [routerLinkActive]="'active'">
+          <div>
+            <span class="material-symbols-outlined text-[32px]">shopping_cart</span>
+          </div>
+          <span *ngIf="cartTotalItemsAmount > 0" class="text-center px-1 left-[2.3rem] top-[1.1rem] text-primary-color-500 absolute bg-background-color rounded-full inline-block">
+            <p *ngIf="cartTotalItemsAmount < 100" class="w-fit h-fit text-xs">
+              {{ cartTotalItemsAmount }}
+            </p>
+            <p *ngIf="cartTotalItemsAmount >= 100" class="w-fit h-fit text-xs">
+              99+
+            </p>
+          </span>
+        </a>
+      </li>
+      <li class="flex items-center text-center" (mouseenter)="toggleDropdown(true)" (mouseleave)="toggleDropdown(false)">
+        <a class="hover:bg-secondary-color px-5 py-2 rounded-lg" *ngIf="accountService.isLoggedIn() == false" [routerLink]="['/login']">Inloggen</a>
+        <div *ngIf="accountService.isLoggedIn() == true" class="relative">
+          <button class="hover:bg-secondary-color px-5 py-2 rounded-lg">
+            Account
+          </button>
+          <div *ngIf="isDropdownVisible" class="absolute right-0 mt-[18px] bg-accent-color text-primary-color-800 rounded-b-lg shadow-lg w-48">
+            <ul class="py-2 text-left">
+              <li>
+                <a class="block px-4 py-2 text-base underline-offset-2 hover:underline hover:bg-tertiary-color" [routerLink]="['/account']">Mijn account</a>
+              </li>
+              <li>
+                <a class="block px-4 py-2 text-base underline-offset-2 hover:underline hover:bg-tertiary-color" [routerLink]="['/account/orders']">Mijn bestellingen</a>
+              </li>
+              <li>
+                <button class="block w-full text-left px-4 py-2 text-base underline-offset-2 hover:underline hover:bg-tertiary-color" (click)="accountService.logout()">Uitloggen</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

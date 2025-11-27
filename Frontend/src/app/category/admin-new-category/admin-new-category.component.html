@@ -1,0 +1,26 @@
+<div class="w-[60%] mx-auto mt-10">
+  <button class="mb-4 text-lg text-primary-color-500 flex items-center text-center" [routerLink]="['/admin/manage-categories']">
+    <span class="material-symbols-outlined font-bold text-[22px] mr-2">arrow_back</span>
+    <p class="hover:underline">Ga terug naar beheer categorieën</p>
+  </button>
+  <div class="flex items-center justify-center mt-20">
+    <div class="flex flex-col bg-tertiary-color border-primary-color-500 border-4 p-8 rounded-lg shadow-lg w-[26rem] text-white">
+      <h2 class="text-3xl font-semibold mb-8 text-center">Nieuwe categorie</h2>
+      <form [formGroup]="newCategoryForm" (ngSubmit)="onSubmit()">
+        <div class="mb-12">
+          <label class="block text-base text-white mb-1">Naam</label>
+          <input class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none"
+                 type="text"
+                 minlength="2"
+                 maxlength="255"
+                 formControlName="name"
+          />
+        </div>
+        <button type="submit" class="w-full text-center bg-primary-color-500 hover:bg-secondary-color text-white font-semibold p-3 rounded disabled:bg-primary-color-500 disabled:cursor-not-allowed" [disabled]="!newCategoryForm.valid">
+          <span class="material-symbols-outlined mt-0.5 mr-2 inline-block align-top">save</span>
+          <p class="font-bold text-lg inline-block align-top">aanmaken</p>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

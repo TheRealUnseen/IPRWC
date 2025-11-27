@@ -1,0 +1,13 @@
+<div class="w-full flex flex-col justify-center items-center overflow-hidden" style="height: calc(100vh - 128px)">
+  <img [ngSrc]="'./assets/banner.avif'" class="w-full h-full object-cover absolute top-0 left-0 -z-10" fill priority>
+  <div class="absolute top-0 left-0 w-full h-full bg-black opacity-40 -z-10"></div>
+  <div class="flex items-center justify-center flex-col text-center text-white px-4">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold mb-4">Welkom bij Hammer & Saw meubelmakerij</h1>
+    <p class="text-lg sm:text-xl md:text-2xl mb-6">Vakmanschap en kwaliteit in elk stuk dat we maken.</p>
+    <a [routerLink]="['/products']">
+      <button class="px-6 py-3 text-lg font-bold bg-primary-color-500 text-white rounded-lg hover:bg-secondary-color">
+        Bekijk onze producten
+      </button>
+    </a>
+  </div>
+</div>

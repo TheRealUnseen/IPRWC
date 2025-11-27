@@ -1,0 +1,19 @@
+<div class="h-80 w-80 bg-tertiary-color border-primary-color-500 border-4 rounded-lg shadow-lg">
+  <div class="border-b-2 border-primary-color-500" (click)="onDetails()" [routerLink]="['/product/' + product.id ]">
+    <img class="hover:cursor-pointer h-40" ngSrc="./assets/{{ product.imageName }}" alt="photo of product" width="312" height="163" priority>
+  </div>
+  <div class="mx-4 my-5">
+    <div class="flex flex-row justify-between mb-4">
+      <h1 class="text-2xl text-primary-color-800 font-bold hover:cursor-pointer hover:underline underline-offset-2 flex items-center justify-center" (click)="onDetails()" [routerLink]="['/product/' + product.id]">{{ product.name }}</h1>
+      <h1 class="bg-dark-secondary-color text-white text-base font-semibold rounded-full px-4 w-fit flex items-center justify-center">
+        {{ product.category.name }}
+      </h1>
+    </div>
+    <div class="flex flex-row justify-between">
+      <p>{{ product.price | currency:'EUR' }}</p>
+      <button class="bg-primary-color-500 px-4 py-3 text-white rounded-lg shadow-lg flex items-center justify-center hover:bg-secondary-color" (click)="onAddToCart()">
+        <span class="material-symbols-outlined text-[32px]">add_shopping_cart</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="h-[10rem] grid grid-cols-10 gap-0 py-3 border-b border-primary-color-500">
+  <div class="col-span-2 flex items-center">
+    <img class="hover:cursor-pointer object-cover rounded-md max-h-[144px] max-w-[144px]" [ngSrc]="'./assets/' + cartItem.product.imageName" width="144" height="144" alt="{{ cartItem.product.name }}">
+  </div>
+  <div class="w-fit grid grid-flow-row-dense col-span-4 ml-2">
+    <h1 class="mt-2.5 -mb-14 h-fit text-2xl font-semibold text-primary-color-800">{{ cartItem.product.name }}</h1>
+    <div class="h-fit flex flex-row">
+      <button (click)="onDeleteAllItemPress()" class="bg-primary-color-500 px-2 py-1 text-white rounded shadow-lg flex items-center justify-center hover:bg-secondary-color">
+        <span class="material-symbols-outlined text-[24px]">delete</span>
+      </button>
+      <div class="flex flex-row ml-4">
+        <button (click)="onDeleteItemPress()" class="bg-primary-color-500 px-2 py-1 text-white rounded-l flex items-center justify-center hover:bg-secondary-color">
+          <span class="material-symbols-outlined text-[24px] select-none">remove</span>
+        </button>
+        <div class="w-10 border-y border-primary-color-500 border-solid">
+          <div class="flex items-center bg-accent-color h-full">
+            <h4 class="w-full text-center">{{cartItem.amount}}</h4>
+          </div>
+        </div>
+        <button (click)="onAddItemPress()" class="bg-primary-color-500 px-2 py-1 text-white rounded-r shadow-lg flex items-center justify-center hover:bg-secondary-color">
+          <span class="material-symbols-outlined text-[24px] select-none">add</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col justify-end h-full col-span-4">
+    <div class="font-semibold grid grid-cols-5">
+      <p class="col-span-3">Prijs per stuk: </p>
+      <p class="col-span-2 ml-2">{{ (cartItem.product.price) | currency: 'EUR'}} </p>
+    </div>
+    <div class="font-semibold grid grid-cols-5">
+      <p class="col-span-3">Totaal prijs: </p>
+      <p class="col-span-2 ml-2">{{ (cartItem.product.price * cartItem.amount) | currency: 'EUR'}} </p>
+    </div>
+  </div>
+</div>

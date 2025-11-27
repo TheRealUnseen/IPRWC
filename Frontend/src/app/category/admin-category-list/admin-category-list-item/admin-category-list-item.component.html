@@ -1,0 +1,19 @@
+<div [ngClass]="(index % 2 == 0) ? 'bg-accent-color' : 'bg-dark-accent-color'" class="grid grid-rows-1 grid-cols-12 border-x-2 border-b-2 border-primary-color-800 h-[3rem]">
+  <div class="col-span-3 col-start-1 border-r-2 border-primary-color-800 h-full ml-1">
+    <p class="pl-2 pt-2">{{ category.id }}</p>
+  </div>
+  <div class="col-span-2 col-start-4 border-r-2 border-primary-color-800 h-full ml-1">
+    <p class="pl-2 pt-2">{{ category.name }}</p>
+  </div>
+  <div class="col-span-6 col-start-6 border-r-2 border-primary-color-800 h-full ml-1"></div>
+  <div class="col-span-1 col-start-12">
+    <div class="block w-fit m-auto pt-2">
+      <button (click)="setSelected()" class="bg-primary-color-500 text-white rounded text-base font-bold hover:bg-secondary-color pb-1.5 mr-4">
+        <span style="font-variation-settings: 'opsz' 20; font-size: 20px" class="material-symbols-outlined md-18 material-icons inline-block align-top mt-1 mx-2">edit_square</span>
+      </button>
+      <button (click)="delete()" class="bg-primary-color-500 text-white rounded text-base font-bold hover:bg-secondary-color pb-1.5">
+        <span style="font-variation-settings: 'opsz' 20; font-size: 20px" class="material-symbols-outlined md-18 material-icons inline-block align-top mt-1 mx-2">delete</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="w-[60%] mx-auto mt-10">
+  <button class="mb-4 text-lg text-primary-color-500 flex items-center text-center" [routerLink]="['/admin/manage-products']">
+    <span class="material-symbols-outlined font-bold text-[22px] mr-2">arrow_back</span>
+    <p class="hover:underline">Ga terug naar beheer producten</p>
+  </button>
+  <div class="flex items-center justify-center">
+    <div class="flex flex-col bg-tertiary-color border-primary-color-500 border-4 p-8 rounded-lg shadow-lg w-[26rem] text-white">
+      <h2 class="text-3xl font-semibold mb-6 text-center">Product aanpassen</h2>
+      <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+        <div class="mb-5">
+          <label class="block text-base text-white mb-1">Id</label>
+          <input class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none"
+                 type="text"
+                 formControlName="id"
+          />
+        </div>
+        <div class="mb-5">
+          <label class="block text-base text-white mb-1">Naam</label>
+          <input class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none"
+                 type="text"
+                 minlength="2"
+                 maxlength="255"
+                 formControlName="name"
+          />
+        </div>
+        <div class="mb-5">
+          <label class="block text-base text-white mb-1">Categorie</label>
+          <select formControlName="category" class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none">
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div class="mb-5">
+          <label class="block text-base text-white mb-1">Prijs</label>
+          <input class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none"
+                 type="text"
+                 minlength="2"
+                 maxlength="255"
+                 formControlName="price"
+          />
+        </div>
+        <div class="mb-5">
+          <label class="block text-base text-white mb-1">Beschrijving</label>
+          <input class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none"
+                 type="text"
+                 minlength="2"
+                 maxlength="255"
+                 formControlName="description"
+          />
+        </div>
+        <div class="mb-5">
+          <label class="block text-base text-white mb-1">Naam van het fotobestand</label>
+          <input class="w-full p-3 rounded bg-accent-color text-primary-color-800 border border-primary-color-500 focus:outline-none"
+                 type="text"
+                 minlength="2"
+                 maxlength="255"
+                 formControlName="imageName"
+          />
+        </div>
+        <button type="submit" class="w-full text-center bg-primary-color-500 hover:bg-secondary-color text-white font-semibold p-3 rounded disabled:bg-primary-color-500 disabled:cursor-not-allowed" [disabled]="!editProductForm.valid">
+          <span class="material-symbols-outlined mt-0.5 mr-2 inline-block align-top">save</span>
+          <p class="font-bold text-lg inline-block align-top">Updaten</p>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

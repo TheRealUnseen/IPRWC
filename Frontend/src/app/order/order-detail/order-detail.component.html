@@ -1,0 +1,41 @@
+<div class="w-[60%] mx-auto px-4 pb-4 mt-10">
+  <button class="mb-4 text-lg text-primary-color-500 flex items-center text-center" [routerLink]="['/account/orders']">
+    <span class="material-symbols-outlined font-bold text-[22px] mr-2">arrow_back</span>
+    <p class="hover:underline">Ga terug naar bestelligen</p>
+  </button>
+  <div>
+    <h1 class="text-primary-color-800 text-4xl font-bold underline-offset-2 underline mb-3 mb-2">Bestelling #{{ order.id }}</h1>
+    <div class="text-dark-secondary-color text-xl font-semibold mb-4">
+      <span>Geplaatst op: {{ order.orderDate | date:'EEEE d MMMM y HH:mm' }}</span>
+    </div>
+    <div class="mb-4 text-primary-color-800">
+      <p class="text-lg font-semibold">
+        Totale prijs: <span class="font-semibold text-dark-secondary-color">{{ order.totalPrice | currency:'EUR' }}</span>
+      </p>
+      <p class="text-lg font-semibold">
+        Status: <span class="font-semibold text-dark-secondary-color">{{ order.status }}</span>
+      </p>
+    </div>
+    <div *ngIf="order.orderItems && order.orderItems.length > 0">
+      <h2 class="text-2xl font-bold mb-4 text-primary-color-800 underline">Bestelde producten</h2>
+      <div *ngFor="let item of order.orderItems" class="border-2 bg-tertiary-color border-primary-color-500 rounded-lg p-4 shadow mb-4">
+        <div class="grid grid-cols-7">
+          <div class="col-span-4">
+            <h3 class="text-2xl font-bold text-primary-color-800">{{ item.product.name }}</h3>
+            <p class="text-base font-semibold text-primary-color-800">Aantal: <span class="text-dark-secondary-color font-semibold">{{ item.quantity }}</span></p>
+          </div>
+          <div class="col-span-2 ml-auto text-base font-semibold text-primary-color-800 flex flex-col justify-center">
+            <p>Prijs per stuk: </p>
+            <p>Totaal prijs: </p>
+          </div>
+          <div class="col-span-1 flex flex-col justify-center">
+            <div class="ml-2 text-base font-semibold text-dark-secondary-color">
+              <p>{{ item.price | currency:'EUR' }}</p>
+              <p>{{ (item.price * item.quantity) | currency:'EUR' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

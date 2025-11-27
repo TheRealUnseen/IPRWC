@@ -1,0 +1,13 @@
+<div class="w-full flex flex-grow overflow-hidden mt-14 mb-10">
+  <div class="grid grid-cols-10 w-full">
+    <div class="col-span-2"></div>
+    <div class="col-span-7 overflow-y-auto">
+      <div class="grid grid-cols-3 gap-10">
+        <div *ngFor="let product of products">
+          <product-list-item [product]="product"></product-list-item>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-1"></div>
+  </div>
+</div>

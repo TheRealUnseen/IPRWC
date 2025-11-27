@@ -1,0 +1,20 @@
+<div class="container mx-auto p-5 mt-10">
+  <button class="mb-4 text-lg text-primary-color-500 flex items-center text-center" [routerLink]="['/products']">
+    <span class="material-symbols-outlined font-bold text-[22px] mr-2">arrow_back</span>
+    <p class="hover:underline">Ga terug naar producten</p>
+  </button>
+  <div *ngIf="product" class="max-w-2xl mt-10 mx-auto bg-tertiary-color border-primary-color-500 border-4 rounded-lg shadow-lg overflow-hidden">
+    <img class="w-full h-64" [ngSrc]="'./assets/' + product.imageName" width="256" height="256" alt="{{ product.name }}">
+    <div class="p-5 border-t-2 border-primary-color-800">
+      <h1 class="text-4xl font-bold text-primary-color-800">{{ product.name }}</h1>
+      <h2 class="text-xl text-primary-color-800 mt-2">{{ product.category.name }}</h2>
+      <p class="text-primary-color-800 my-4">{{ product.description }}</p>
+      <div class="flex justify-between items-center">
+        <span class="text-2xl text-dark-secondary-color font-semibold">{{ product.price | currency:'EUR' }}</span>
+        <button class="bg-primary-color-500 px-4 py-3 text-white rounded-lg shadow-lg flex items-center justify-center hover:bg-secondary-color" (click)="onAddToCart()">
+          <span class="material-symbols-outlined text-[32px]">add_shopping_cart</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

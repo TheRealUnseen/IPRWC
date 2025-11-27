@@ -1,0 +1,8 @@
+<div class="w-[60%] mx-auto mt-10">
+  <button class="mb-4 text-lg text-primary-color-500 flex items-center text-center" [routerLink]="['/account']">
+    <span class="material-symbols-outlined font-bold text-[22px] mr-2">arrow_back</span>
+    <p class="hover:underline">Ga terug naar account</p>
+  </button>
+  <h1 class="text-primary-color-800 text-4xl font-bold underline-offset-2 underline mb-6">Bestellingen</h1>
+  <order-list-item [order]="order"  *ngFor="let order of orders"></order-list-item>
+</div>
